@@ -1,0 +1,26 @@
+@startuml
+title SmartHome Context Diagram
+
+!includeurl https://raw.githubusercontent.com/RicardoNiepel/C4-PlantUML/master/C4_Component.puml
+
+Boundary(PropDevelopment, "PropDevelopment", "Software System") {
+    System(SmartHomeSystem, "SmartHome System", "System managing smart home devices")
+    System(MobileApp, "Mobile App", "Application used by property owners")
+}
+
+Person_Ext(User, "User", "Smart home user")
+Person_Ext(Manager, "Manager", "Manage users, properties and devices")
+System_Ext(Device, "Device", "Smart home device")
+System_Ext(Partner, "Partner", "Smart device's provider")
+
+Rel(User, MobileApp, "Uses")
+Rel(User, Device, "Interacts")
+Rel(Manager, SmartHomeSystem, "Manages")
+Rel(MobileApp, SmartHomeSystem, "Manages devices")
+Rel(Partner, Device, "Send commands")
+Rel(Device, Partner, "Send telemetry data")
+Rel(Partner, SmartHomeSystem, "Interacts")
+Rel(SmartHomeSystem, Partner, "Send commands")
+Rel(MobileApp, Partner, "Send biometric data [from partner's builtin plugin]")
+
+@enduml
